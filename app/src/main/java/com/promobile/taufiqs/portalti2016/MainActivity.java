@@ -2,6 +2,8 @@ package com.promobile.taufiqs.portalti2016;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import adapter.MahasiswaAdapter;
@@ -15,10 +17,17 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView lstMahasiswa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        lstMahasiswa = (RecyclerView)findViewById(R.id.lst_mahasiswa);
+        lstMahasiswa.setLayoutManager(new LinearLayoutManager(this));
+
+        requestDaftarMahasiswa();
     }
 
     private void requestDaftarMahasiswa() {
@@ -33,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("TI2016", mahasiswa.getTitle());
 
                     MahasiswaAdapter adapter = new MahasiswaAdapter(mahasiswa.getData());
+                    lstMahasiswa.setAdapter(adapter);
                 }
             }
 
